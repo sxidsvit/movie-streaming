@@ -119,6 +119,7 @@ export const newSeason = [
         }
     },
 ]
+
 export const continueWatching = [
     {
         id: 1,
