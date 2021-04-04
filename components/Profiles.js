@@ -41,7 +41,7 @@ const Profiles = ({ profiles }) => {
           if (index <= 2) {
             return (
               <View
-                key={`profile-${item}`}
+                key={`profile-${index}`}
                 style={index == 0 ? null : { marginLeft: -15 }}
               >
                 <Image

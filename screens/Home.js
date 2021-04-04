@@ -179,6 +179,61 @@ const Home = ({ navigation }) => {
         )
     }
 
+    const renderDots = () => {
+        const dotPosition = Animated.divide(newSeasonScrollX, SIZES.width)
+        return (
+            <View
+                style={{
+                    marginTop: SIZES.padding,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
+                {dummyData.newSeason.map((item, index) => {
+
+                    const dotOpacity = dotPosition.interpolate({
+                        inputRange: [index - 1, index, index + 1],
+                        outputRange: [0.3, 1, 0.3],
+                        extrapolate: 'clamp'
+                    })
+
+                    const dotWidth = dotPosition.interpolate({
+                        inputRange: [index - 1, index, index + 1],
+                        outputRange: [6, 20, 6],
+                        extrapolate: 'clamp'
+                    })
+
+                    const dotColor = dotPosition.interpolate({
+                        inputRange: [index - 1, index, index + 1],
+                        outputRange: [COLORS.lightGray, COLORS.primary, COLORS.lightGray],
+                        extrapolate: 'clamp'
+                    })
+
+                    return (
+                        <Animated.View
+                            key={`dot-${index}`}
+                            opacity={dotOpacity}
+                            style={{
+                                borderRadius: SIZES.radius,
+                                marginHorizontal: 3,
+                                width: 6,
+                                height: 6,
+                                width: dotWidth,
+                                backgroundColor: dotColor
+                            }}
+                        >
+
+                        </Animated.View>
+                    )
+
+
+
+                })
+                }
+
+            </View >
+        )
+    }
 
 
     return (
@@ -193,6 +248,7 @@ const Home = ({ navigation }) => {
                     paddingBottom: 100
                 }}>
                 {renderNewSeasonSection()}
+                {renderDots()}
 
 
             </ScrollView>
