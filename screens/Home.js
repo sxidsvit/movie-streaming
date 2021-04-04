@@ -13,6 +13,7 @@ import {
     TouchableOpacityBase
 } from 'react-native';
 
+import { Profiles } from '../components'
 import { dummyData, icons, images, COLORS, SIZES, FONTS } from '../constants'
 
 const Home = ({ navigation }) => {
@@ -119,13 +120,13 @@ const Home = ({ navigation }) => {
                                 >
                                     <View style={{
                                         flexDirection: 'row',
+                                        justifyContent: 'space-between',
                                         height: 60,
                                         width: '100%',
                                         marginBottom: SIZES.radius,
                                     }}>
                                         {/* Play Now */}
                                         <View style={{
-                                            flex: 1,
                                             flexDirection: 'row',
                                             alignItems: 'center'
                                         }}>
@@ -150,26 +151,28 @@ const Home = ({ navigation }) => {
                                             <Text style={{
                                                 marginLeft: SIZES.base,
                                                 color: COLORS.white, ...FONTS.h3
-                                            }}>
-                                                Play Now
-                                                </Text>
-
+                                            }}>Play Now</Text>
                                         </View>
+
                                         {/* Still Watching */}
                                         {item.stillWatching?.length > 0 &&
-                                            <View View View style={{
+                                            <View style={{
                                                 justifyContent: 'center'
                                             }}>
                                                 <Text style={{
                                                     color: COLORS.white, ...FONTS.h4
                                                 }}>Still Watching</Text>
+
+                                                <Profiles
+                                                    profiles={item.stillWatching}
+                                                />
                                             </View>
                                         }
 
                                     </View>
                                 </ImageBackground>
                             </View>
-                        </TouchableWithoutFeedback >
+                        </TouchableWithoutFeedback>
                     )
                 }}
             />
