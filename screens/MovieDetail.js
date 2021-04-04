@@ -7,7 +7,8 @@ import {
     Image,
     StyleSheet,
     ScrollView,
-    Platform
+    Platform,
+    TouchableOpacityBase
 } from 'react-native'
 
 import LinearGradient from 'react-native-linear-gradient'
@@ -20,7 +21,6 @@ const MovieDetail = ({ navigation, route }) => {
 
     useEffect(() => {
         let { selectedMovie } = route.params
-        console.log('selectedMovie: ', JSON.stringify(selectedMovie, null, 2));
         setSelectedMovie(selectedMovie)
     }, [])
 
@@ -193,6 +193,58 @@ const MovieDetail = ({ navigation, route }) => {
         )
     }
 
+    const renderMovieDetails = () => {
+        return (
+            <View
+                style={{
+                    flex: 1,
+                    paddingHorizontal: SIZES.padding,
+                    marginTop: SIZES.padding,
+                    justifyContent: 'space-around'
+                }}>
+                {/* Title, running time & progress bar  */}
+                <View>
+                    {/* Title & running tie  */}
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text style={{ flex: 1, color: COLORS.white, ...FONTS.h4 }}>
+                            {selectedMovie?.details?.currentEpisode}
+                        </Text>
+                        <Text style={{ color: COLORS.lightGray, ...FONTS.body4 }}>
+                            {selectedMovie?.details?.runningTime}
+                        </Text>
+                    </View>
+                    {/* Progress bar  */}
+                    <ProgressBar
+                        containerStyle={{
+                            marginTop: SIZES.radius
+                        }}
+                        barStyle={{
+                            height: 5,
+                            borderRadius: 3
+                        }}
+                        barPercentage={selectedMovie?.details?.progress}
+                    />
+                </View>
+                {/* Watch */}
+                <TouchableOpacity
+                    style={{
+                        height: 60,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginBottom: Platform.OS === 'ios' ? SIZES.padding : 0,
+                        borderRadius: 15,
+                        backgroundColor: COLORS.primary
+                    }}>
+                    <Text style={{ color: COLORS.lightGray, ...FONTS.h2 }
+                    }>
+                        {selectedMovie?.details?.progress === '0%' ? 'WATCH NOW' : 'CONTINUE WATCHING'}
+                    </Text>
+
+                </TouchableOpacity>
+            </View>
+        )
+    }
+
     return (
         <ScrollView
             contentContainerStyle={{ flex: 1, backgroundColor: COLORS.black }}
@@ -203,7 +255,7 @@ const MovieDetail = ({ navigation, route }) => {
             {/* Category & Rating  */}
             {renderCategoryAndRatings()}
             {/* Movie Details  */}
-
+            {renderMovieDetails()}
         </ScrollView>
 
     )
